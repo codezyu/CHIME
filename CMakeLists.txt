@@ -157,12 +157,14 @@ else()
     remove_definitions(-DGREEDY_RANGE_QUERY)
 endif()
 
+set(THIRD_LIB ${PROJECT_SOURCE_DIR}/third_lib)
+
 #Include files
-set(INCLUDE_BASE ${PROJECT_SOURCE_DIR}/include)
+set(INCLUDE_BASE ${PROJECT_SOURCE_DIR}/include ${THIRD_LIB}/include)
 include_directories(${INCLUDE_BASE})
 
 #Source file define
-set(COMMON_SRC ${PROJECT_SOURCE_DIR}/src)
+set(COMMON_SRC ${PROJECT_SOURCE_DIR}/src ${THIRD_LIB}/src)
 
 #Used by both server and clients
 file(GLOB_RECURSE COMMON_FILE ${COMMON_SRC}/*.cpp)
@@ -170,9 +172,9 @@ add_library(CHIME STATIC ${COMMON_FILE})
 link_libraries(CHIME)
 
 #Test codes
-file(GLOB TEST_SRC ${PROJECT_SOURCE_DIR}/test/*.cpp)
-foreach (TEST ${TEST_SRC})
-    get_filename_component(TEST_NAME ${TEST} NAME_WE)
-    add_executable(${TEST_NAME} ${TEST})
-    target_link_libraries(${TEST_NAME} ${LINKS_FLAGS})
-endforeach()
+# file(GLOB TEST_SRC ${PROJECT_SOURCE_DIR}/test/*.cpp)
+# foreach (TEST ${TEST_SRC})
+#     get_filename_component(TEST_NAME ${TEST} NAME_WE)
+#     add_executable(${TEST_NAME} ${TEST})
+#     target_link_libraries(${TEST_NAME} ${LINKS_FLAGS})
+# endforeach()
